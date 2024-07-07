@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-// Función para generar datos
+// Funciones para generar datos
 std::vector<int> generate_data_lineal(size_t n);
 std::vector<int> generate_data_normal(size_t n);
 

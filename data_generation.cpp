@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-// Función para generar datos con distribución lineal y normal
+// Función para generar datos con distribución lineal
 std::vector<int> generate_data_lineal(size_t n) {
     std::vector<int> data(n);
     data[0] = rand() % 100; // Inicializar el primer valor
@@ -15,6 +15,7 @@ std::vector<int> generate_data_lineal(size_t n) {
     return data;
 }
 
+// Función para generar datos con distribución normal
 std::vector<int> generate_data_normal(size_t n) {
     std::vector<int> data(n);
     std::default_random_engine generator;
@@ -26,7 +27,7 @@ std::vector<int> generate_data_normal(size_t n) {
     return data;
 }
 
-// Función para imprimir datos (opcional, para verificar los datos generados)
+// Función para imprimir datos (para verificar datos)
 void print_data(const std::vector<int>& data) {
     for (size_t i = 0; i < data.size(); ++i) {
         std::cout << data[i] << " ";
