@@ -6,6 +6,9 @@
 //Función para calcular Gap-Coding
 std::vector<int> gap_coding(const std::vector<int>& arr) {
     std::vector<int> gc;
+    if (arr.empty()) {
+        return gc;  
+    }
     gc.push_back(arr[0]); // El primer elemento es igual al original
     for (size_t i = 1; i < arr.size(); ++i) {
         gc.push_back(arr[i] - arr[i - 1]); // Calcula la diferencia con el elemento anterior
@@ -26,20 +29,29 @@ int binary_search_gap_coded(const std::vector<int>& gc, const Sample& sample, in
     int b = sample.gap;
     
     //Recuperar el elemento inicial del sample y su índice correspondiente en gc
-    int initial_value = sample.values[0];
-    int index = binary_search(gc, initial_value);
-    
-    //Si el elemento está en el arreglo Gap-Coded, calcular la posición en el arreglo original
-    if (index != -1) {
-        int position = index * b; //Calcular la posición inicial en el arreglo original
-        int current_value = initial_value; //Valor actual para reconstruir el arreglo original
-        
-        //Iterar sobre los elementos del sample y ajustar la posición
-        for (int i = 1; i < m; ++i) {
-            current_value += sample.values[i]; //Avanzar al siguiente valor del sample
-            position += sample.gap; //Ajustar la posición en el arreglo original
+    int low = 0;
+    int high = m - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sample.values[mid] == x) {
+            return mid * b; // Elemento encontrado en el sample
+        } else if (sample.values[mid] < x) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
         }
     }
-    
+
+    // Decodificar los valores en el intervalo y buscar el elemento
+    int start = (low - 1) * b;
+    int end = low * b;
+
+    int current_value = sample.values[low - 1];
+    for (int i = start; i < end && i < n; ++i) {
+        current_value += gc[i];
+        if (current_value == x) {
+            return i;
+        }
+    }
     return -1; //si nunca lo encontró retorna el -1
 }

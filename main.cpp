@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include "data_generation.h"
 #include "binary_search.h"
 #include "gap_coding.h"
+#include "huffman.h"
 
 int main() {
     size_t n = 100; //Cantidad de datos (debe ser enorme)
@@ -86,6 +88,32 @@ int main() {
     } else {
         std::cout << "Elemento " << target_normal_gc << " no encontrado en el arreglo Gap-Coded." << std::endl;
     }
+
+
+    //Huffman
+    //lineal
+    //std::vector<int> gc_lineal = gap_coding(data_lineal);
+    std::unordered_map<int, int> frecuencias_lineal = calcularFrecuencia(gc_lineal);
+    Nodo* arbolHuffman_lineal = construirArbolHuffman(frecuencias_lineal);
+    std::unordered_map<int, std::string> huffmanCodes_lineal;
+    generarCodigos(arbolHuffman_lineal, "", huffmanCodes_lineal);
+    std::cout << "Códigos de Huffman para datos lineales:\n";
+    for (const auto& par : huffmanCodes_lineal) {
+        std::cout << par.first << ": " << par.second << "\n";
+    }
+
+
+    //normal
+    //std::vector<int> gc_normal = gap_coding(data_normal);
+    std::unordered_map<int, int> frecuencias_normal = calcularFrecuencia(gc_normal);
+    Nodo* arbolHuffman_normal = construirArbolHuffman(frecuencias_normal);
+    std::unordered_map<int, std::string> huffmanCodes_normal;
+    generarCodigos(arbolHuffman_normal, "", huffmanCodes_normal);
+    std::cout << "Códigos de Huffman para datos normales:\n";
+    for (const auto& par : huffmanCodes_normal) {
+        std::cout << par.first << ": " << par.second << "\n";
+    }
+
 
     return 0;
 }
