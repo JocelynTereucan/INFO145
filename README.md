@@ -24,7 +24,7 @@ El objetivo es medir el espacio requerido por cada técnica y estimar el tiempo 
 ## Compilación y Ejecución
 
 - Ejecutar en el terminal del directorio del proyecto
-    'g++ -o main main.cpp data_generation.cpp'
+    'g++ -o main main.cpp data_generation.cpp binary_search.cpp gap_coding.cpp huffman.cpp'
 - Para ejecutar el programa compilado, escibe en la terminal
     ´./main'
 
