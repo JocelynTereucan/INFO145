@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include "binary_search.h"
+#include "gap_coding.h"
 
 //Función para calcular Gap-Coding
 std::vector<int> gap_coding(const std::vector<int>& arr) {
@@ -17,10 +18,10 @@ std::vector<int> gap_coding(const std::vector<int>& arr) {
 }
 
 //Definición de la estructura sample
-struct Sample {
-    std::vector<int> values;
-    int gap;
-};
+//struct Sample {
+  //  std::vector<int> values;
+    //int gap;
+//};
 
 //Función para realizar la búsqueda binaria en el arreglo Gap-Coded utilizando el sample
 int binary_search_gap_coded(const std::vector<int>& gc, const Sample& sample, int x) {
@@ -55,3 +56,17 @@ int binary_search_gap_coded(const std::vector<int>& gc, const Sample& sample, in
     }
     return -1; //si nunca lo encontró retorna el -1
 }
+
+//medicion de tiempo
+double measure_gap_search_time(const std::vector<int>& arr, const Sample& sample, int x) {
+    auto start = std::chrono::high_resolution_clock::now(); //inicia el tiempo
+    binary_search_gap_coded(arr,sample, x); //busca
+    auto end = std::chrono::high_resolution_clock::now(); //tiempo final
+    std::chrono::duration<double> diff = end - start; //calcula la duracion
+    return diff.count();
+}
+
+// Medir espacio en bytes (solo aproximado)
+//size_t measure_memory(const std::vector<int>& arr) {
+  //  return arr.size() * sizeof(int);
+//}
